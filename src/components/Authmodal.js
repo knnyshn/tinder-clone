@@ -35,7 +35,7 @@ function Authmodal({ setShowModal, isSignUp }) {
                     type="email"
                     id="email"
                     name="email"
-                    placeholder="email"
+                    placeholder="E-mail"
                     required={true}
                     onChange={(e) => setEmail(e.target.value)}
                 />
@@ -43,7 +43,7 @@ function Authmodal({ setShowModal, isSignUp }) {
                     type="password"
                     id="password"
                     name="password"
-                    placeholder="password"
+                    placeholder="Password"
                     required={true}
                     onChange={(e) => setPassword(e.target.value)}
                 />
@@ -51,7 +51,7 @@ function Authmodal({ setShowModal, isSignUp }) {
                     type="password-check"
                     id="password-check"
                     name="password-check"
-                    placeholder="confirm password"
+                    placeholder="Confirm Password"
                     required={true}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 />}
