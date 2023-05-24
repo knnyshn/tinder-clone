@@ -84,9 +84,6 @@ nav .logo-container .logo {
 
 /* ----- Home page ----- */
 
-.home {
-    margin-top: 30vh;
-}
 
 .overlay {
     width: 100vw;
@@ -96,7 +93,11 @@ nav .logo-container .logo {
         to bottom,
         rgba(0, 0, 0, 0.65) 0%,
         rgba(0, 0, 0, 0) 100%
-    ), url('images/6e9794bcedeecf5a8f8f41338a2a7345.webp')
+        ), url('images/6e9794bcedeecf5a8f8f41338a2a7345.webp')
+}
+    
+.home {
+    margin-top: 30vh;
 }
 
 /* ----- Auth Modal ----- */
@@ -134,10 +135,13 @@ nav .logo-container .logo {
 
 /* ----- OnBoarding Page ----- */
 
+.onboarding {
+    border-top: solid 1px rgb(213, 213, 213);
+}
+
 .onboarding form {
     display: flex;
     justify-content: center;
-    text-align: start;
 }
 
 .onboarding form section {
@@ -145,6 +149,7 @@ nav .logo-container .logo {
     flex-direction: column;
     padding: 20px;
     width: 35%;
+    text-align: start;
 }
 
 .onboarding form input {
@@ -155,12 +160,6 @@ nav .logo-container .logo {
     border-radius: 10px;
 }
 
-.onboarding form input::-webkit-outer-spin-button,
-.onboarding form input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
 .onboarding form label {
     margin: 10px 0;
 }
@@ -169,6 +168,13 @@ nav .logo-container .logo {
     display: flex;
     flex-direction: row;
 }
+
+.onboarding form input::-webkit-outer-spin-button,
+.onboarding form input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 
 .onboarding form .multiple-input-container input {
     margin-right: 10px;
@@ -200,4 +206,10 @@ nav .logo-container .logo {
 
 .onboarding form input[type="submit"]:active {
     background-color: rgb(226, 115, 155);
+} .onboarding form .photo-container img {
+    width: 100%
+}
+
+.onboarding form .photo-container img {
+    width: 100%
 }

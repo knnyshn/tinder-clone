@@ -27,7 +27,7 @@ function Home() {
           {authToken ? "Signout" : "Create Account"}
         </button>
 
-        {showModal && <Authmodal setShowModal={setShowModal} isSignUp={isSignUp}/>}
+        {showModal && <Authmodal setShowModal={setShowModal} isSignUp={isSignUp} isSignUUp={isSignUp} />}
       </div>
     </div>
   );
