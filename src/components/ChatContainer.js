@@ -1,4 +1,7 @@
 import React from 'react'
+import ChatDisplay from './ChatDisplay'
+import ChatHeader from './ChatHeader'
+import MatchesDisplay from './MatchesDisplay'
 
 function ChatContainer() {
   return (
@@ -6,9 +9,12 @@ function ChatContainer() {
           <ChatHeader />
           <div>
               <button className='option'>Matches</button>
-              <button className='option'>Chats</button>
+              <button className='option'>Chat</button>
           </div>
+
           <MatchesDisplay />
+
+          <ChatDisplay />
     </div>
   )
 }
