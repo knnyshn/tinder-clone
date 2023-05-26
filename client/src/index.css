@@ -206,9 +206,7 @@ nav .logo-container .logo {
 
 .onboarding form input[type="submit"]:active {
     background-color: rgb(226, 115, 155);
-} .onboarding form .photo-container img {
-    width: 100%
-}
+} 
 
 .onboarding form .photo-container img {
     width: 100%
