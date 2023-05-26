@@ -7,7 +7,7 @@ const cors = require('cors')
 const bcrypt = require('bcrypt')
 
 
-const uri = 'mongodb+srv://knnyshn:mypassword@cluster0.8jitjfw.mongodb.net/?retryWrites=true&w=majority'
+const uri = check out later
 
 
 const app = express()

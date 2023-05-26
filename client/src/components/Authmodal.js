@@ -59,7 +59,7 @@ function Authmodal({ setShowModal, isSignUp }) {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                {isSignUp && <input
-                    type="password-check"
+                    type="password"
                     id="password-check"
                     name="password-check"
                     placeholder="Confirm Password"
