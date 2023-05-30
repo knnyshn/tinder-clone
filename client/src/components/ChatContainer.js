@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ChatDisplay from './ChatDisplay'
 import ChatHeader from './ChatHeader'
 import MatchesDisplay from './MatchesDisplay'
 
 function ChatContainer({ user }) {
+  const [ clickedUser, setClickedUser ] = useState(null)
   return (
       <div className='chat-container'>
       <ChatHeader user={user} />
@@ -12,7 +13,7 @@ function ChatContainer({ user }) {
               <button className='option'>Chat</button>
           </div>
 
-          <MatchesDisplay />
+      <MatchesDisplay matches={ user.matches } setClickedUser={setClickedUser} />
 
           <ChatDisplay />
     </div>

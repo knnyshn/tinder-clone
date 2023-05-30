@@ -7,6 +7,8 @@ import axios from 'axios'
 function Dashboard() {
   const [user, setUser] = useState(null)
   const [cookies, setCookie, removeCookie] = useCookies(null)
+  const [lastDirection, setLastDirection] = useState()
+  const [genderedUsers, setGenderedUsers] = useState(null)
   
   const userId = cookies.UserId
   
@@ -21,40 +23,41 @@ function Dashboard() {
     }
   } 
 
+  const getGenderedUsers = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/genderedusers', {
+        params: { gender: user?.gender_interest }
+      })
+      setGenderedUsers(response.data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     getUser()
-  }, [] )
+    getGenderedUsers()
+  }, [user, genderedUsers] )
 
-  console.log(user);
+  // console.log('user', user)
+  // console.log('gendered users', genderedUsers)
 
-  const characters = [
-    {
-      name: 'Richard Hendricks',
-      url: './img/richard.jpg'
-    },
-    {
-      name: 'Erlich Bachman',
-      url: './img/richard.jpg'
-    },
-    {
-      name: 'Monica Hall',
-      url: './img/monica.jpg'
-    },
-    {
-      name: 'Jared Dunn',
-      url: './img/jared.jpg'
-    },
-    {
-      name: 'Dinesh Chugtai',
-      url: './img/dinesh.jpg'
+  const updateMatches = async (matchedUserId) => {
+    try {
+      await axios.put('http://localhost:8000/addmatch', {
+        userId,
+        matchedUserId
+      })
+      getUser()
+    } catch (error) {
+      console.log(error);
     }
+  }
 
-  ]
-
-  const [lastDirection, setLastDirection] = useState()
-
-  const swiped = (direction, nameToDelete) => {
-    console.log('removing: ' + nameToDelete)
+  const swiped = (direction, swipedUserId) => {
+    if (direction === 'right') {
+      updateMatches(swipedUserId.user_id)
+    }
     setLastDirection(direction)
   }
 
@@ -62,7 +65,11 @@ function Dashboard() {
     console.log(name + ' left the screen!')
   }
 
+  const matchedUserIds = user?.matches.map(({ user_id }) => user_id).concat(userId)
 
+  const filteredGenderedUsers = genderedUsers?.filter(
+    genderedUser => !matchedUserIds.includes(genderedUser.user_id)
+  )
 
 
   return (
@@ -72,16 +79,16 @@ function Dashboard() {
           <ChatContainer user={user} />
           <div className='swipe-container'>
             <div className='card-container'>
-              {characters.map((character) =>
+              {filteredGenderedUsers?.map((genderedUser) =>
                 <TinderCard
                   className="swipe"
-                  key={character.name}
-                  onSwipe={(dir) => swiped(dir, character.name)}
-                  onCardLeftScreen={() => outOfFrame(character.name)}>
+                  key={genderedUser.first_name}
+                  onSwipe={(dir) => swiped(dir, genderedUser.user_id)}
+                  onCardLeftScreen={() => outOfFrame(genderedUser.firsT_name)}>
                   <div
-                    style={{ backgroundImage: "url(" + character.url + ")" }}
+                    style={{ backgroundImage: "url(" + genderedUser.url + ")" }}
                     className="card">
-                    <h3>{character.name}</h3>
+                    <h3>{genderedUser.first_name}</h3>
                   </div>
                 </TinderCard>
               )}
