@@ -7,7 +7,7 @@ const cors = require('cors')
 const bcrypt = require('bcrypt')
 
 
-const uri = 'mongodb+srv://knnyshn:mypassword@cluster0.8jitjfw.mongodb.net/?retryWrites=true&w=majority'
+// CONST URI GOES HERE
 // DO NOT PUSH UNTIL THIS IS HIDDEN
 
 const app = express()
@@ -81,6 +81,26 @@ app.post('/login', async (req, res) => {
     }
 
 })
+
+
+app.get('/user', async (req, res) => {
+    const client = new MongoClient(uri)
+    const userId = req.query.userId
+    
+
+    try {
+        await client.connect()
+        const database = client.db('app-data')
+        const users = database.collection('users')
+
+        const query = { user_id: userId }
+        const user = await users.findOne(query)
+        res.send(user)
+    } finally {
+        await client.close()
+    }
+})
+
 
 app.get('/users', async (req, res) => {
     const client = new MongoClient(uri)
