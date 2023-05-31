@@ -36,11 +36,13 @@ function Dashboard() {
 
   useEffect(() => {
     getUser()
-    getGenderedUsers()
-  }, [user, genderedUsers] )
-
-  // console.log('user', user)
-  // console.log('gendered users', genderedUsers)
+  }, [])
+  
+  useEffect(() => {
+    if (user) {
+      getGenderedUsers()
+    }
+  }, [user])
 
   const updateMatches = async (matchedUserId) => {
     try {
@@ -56,7 +58,7 @@ function Dashboard() {
 
   const swiped = (direction, swipedUserId) => {
     if (direction === 'right') {
-      updateMatches(swipedUserId.user_id)
+      updateMatches(swipedUserId)
     }
     setLastDirection(direction)
   }
@@ -71,6 +73,7 @@ function Dashboard() {
     genderedUser => !matchedUserIds.includes(genderedUser.user_id)
   )
 
+  // console.log('filteredGenderedUsers', filteredGenderedUsers);
 
   return (
     <>
@@ -82,9 +85,9 @@ function Dashboard() {
               {filteredGenderedUsers?.map((genderedUser) =>
                 <TinderCard
                   className="swipe"
-                  key={genderedUser.first_name}
+                  key={genderedUser.user_id}
                   onSwipe={(dir) => swiped(dir, genderedUser.user_id)}
-                  onCardLeftScreen={() => outOfFrame(genderedUser.firsT_name)}>
+                  onCardLeftScreen={() => outOfFrame(genderedUser.first_name)}>
                   <div
                     style={{ backgroundImage: "url(" + genderedUser.url + ")" }}
                     className="card">

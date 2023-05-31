@@ -1,12 +1,11 @@
-import React from "react";
-import { useState } from "react";
 import Nav from "../components/Nav";
-import { useCookies } from 'react-cookie'
-import { useNavigate } from 'react-router-dom'
-import axios from "axios"
+import { useState } from "react";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Onboarding() {
-  const [cookies, setCookie, removeCookie] = useCookies(['user'])
+  const [cookies, setCookie, removeCookie] = useCookies(null);
   const [formData, setFormData] = useState({
     user_id: cookies.UserId,
     first_name: "",
@@ -21,36 +20,39 @@ function Onboarding() {
     matches: [],
   });
 
-  let navigate = useNavigate()
+  let navigate = useNavigate();
 
-
-  const handleSubmit = async(e) => {
-    console.log("submitted")
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    console.log("submitted");
+    e.preventDefault();
     try {
-      const response = await axios.put('http://localhost:8000/user', { formData })
-      const success = response.status === 200
-      if (success) navigate('/dashboard')
+      const response = await axios.put("http://localhost:8000/user", {
+        formData,
+      });
+      const success = response.status === 200;
+      if (success) navigate("/dashboard");
     } catch (err) {
       console.log(err);
     }
   };
+  
   const handleChange = (e) => {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
     const name = e.target.name;
     console.log("value" + value, "name" + name);
     setFormData((prevState) => ({
       ...prevState,
-      [name] : value
-    }))
-  }
+      [name]: value,
+    }));
+  };
 
   console.log(formData);
 
   return (
     <>
       <Nav minimal={true} setShowModal={() => {}} showModal={false} />
-      
+
       <div className="onboarding">
         <h2>CREATE ACCOUNT</h2>
 
@@ -73,7 +75,7 @@ function Onboarding() {
                 id="dob_day"
                 type="number"
                 name="dob_day"
-                placeholder="00"
+                placeholder="DD"
                 required={true}
                 value={formData.dob_day}
                 onChange={handleChange}
@@ -108,7 +110,7 @@ function Onboarding() {
                 name="gender_identity"
                 value={"man"}
                 onChange={handleChange}
-                checked={formData.gender_identity === 'man'}
+                checked={formData.gender_identity === "man"}
               />
               <label htmlFor="man-gender-identity">Man</label>
               <input
@@ -117,7 +119,7 @@ function Onboarding() {
                 name="gender_identity"
                 value={"woman"}
                 onChange={handleChange}
-                checked={formData.gender_identity === 'woman'}
+                checked={formData.gender_identity === "woman"}
               />
               <label htmlFor="woman-gender-identity">Woman</label>
               <input
@@ -149,7 +151,7 @@ function Onboarding() {
                 name="gender_interest"
                 value={"man"}
                 onChange={handleChange}
-                checked={formData.gender_interest === 'man'}
+                checked={formData.gender_interest === "man"}
               />
               <label htmlFor="man-gender-interest">Man</label>
               <input
@@ -158,7 +160,7 @@ function Onboarding() {
                 name="gender_interest"
                 value={"woman"}
                 onChange={handleChange}
-                checked={formData.gender_interest === 'woman'}
+                checked={formData.gender_interest === "woman"}
               />
               <label htmlFor="woman-gender-interest">Woman</label>
               <input
@@ -167,7 +169,7 @@ function Onboarding() {
                 name="gender_interest"
                 value={"everyone"}
                 onChange={handleChange}
-                checked={formData.gender_interest === 'everyone'}
+                checked={formData.gender_interest === "everyone"}
               />
               <label htmlFor="everyone-gender-interest">Everyone</label>
             </div>
@@ -195,7 +197,9 @@ function Onboarding() {
               required={true}
             />
             <div className="photo-container">
-              {formData.url && <img src={formData.url} alt="profile pic preview" />}
+              {formData.url && (
+                <img src={formData.url} alt="profile pic preview" />
+              )}
             </div>
           </section>
         </form>

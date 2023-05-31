@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -9,15 +8,16 @@ function Authmodal({ setShowModal, isSignUp }) {
     const [password, setPassword] = useState(null)
     const [confirmPassword, setConfirmPassword] = useState(null)
     const [error, setError] = useState(null)
-    const [cookies, setCookie, removeCookie] = useCookies(['user'])
+    const [cookies, setCookie, removeCookie] = useCookies(null)
     
     let navigate = useNavigate()
 
-    console.log(email, password, confirmPassword);
+    console.log(email, password, confirmPassword)
 
     const handleClick = () => {
         setShowModal(false);
-    };
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
@@ -28,11 +28,10 @@ function Authmodal({ setShowModal, isSignUp }) {
 
             const response = await axios.post(`http://localhost:8000/${isSignUp ? 'signup' : 'login'}`, { email, password })
 
-            setCookie('UserId', response.data.userId)
             setCookie('AuthToken', response.data.token)
+            setCookie('UserId', response.data.userId)
 
             const success = response.status === 201
-
             if (success && isSignUp) navigate('/onboarding')
             if (success && !isSignUp) navigate('/dashboard')
 
@@ -47,6 +46,7 @@ function Authmodal({ setShowModal, isSignUp }) {
       
     <div className="auth-modal">
             <div className="close-icon" onClick={handleClick}>ⓧ</div>
+
             <h2>{isSignUp ? 'CREATE ACCOUNT' : 'LOG IN'}</h2>
             <p>By clicking Log In, you agree to our terms. Learn how we process your data in our Privacy Policy and Cookie Policy</p>
             <form onSubmit={handleSubmit}>
