@@ -199,7 +199,7 @@ app.put("/user", async (req, res) => {
 });
 
 
-app.get("/messages", async () => {
+app.get("/messages", async (req, res) => {
   const client = new MongoClient(uri);
   const { userId, correspondingUserId } = req.query;
 

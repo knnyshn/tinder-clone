@@ -28,7 +28,7 @@ function ChatDisplay({ user, clickedUser }) {
       const response = await axios.get('http://localhost:8000/messages', {
         params: { userId: clickedUserId, correspondingUserId: userId }
       })
-      setUsersMessages(response.data)
+      setClickedUsersMessages(response.data)
     } catch (error) {
       console.log(error)
     }
@@ -63,11 +63,11 @@ function ChatDisplay({ user, clickedUser }) {
   
   return (
     <>
-      <Chat />
+      <Chat descendingOrderMessages={descendingOrderMessages}/>
       <ChatInput
         user={user}
         clickedUser={clickedUser}
-        getUsersMessages={getUsersMessages}
+        getUserMessages={getUsersMessages}
         getClickedUsersMessages={getClickedUsersMessages} />
     </>
   );

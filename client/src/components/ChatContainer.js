@@ -16,14 +16,14 @@ function ChatContainer({ user }) {
           Chat
         </button>
       </div>
-      {!clickedUser && (
+      {!clickedUser && 
         <MatchesDisplay
           matches={user.matches}
           setClickedUser={setClickedUser}
         />
-      )}
+      }
 
-      {clickedUser && <ChatDisplay user={ user } clickedUser={ clickedUser } />}
+      {clickedUser && <ChatDisplay user={user} clickedUser={clickedUser} />}
     </div>
   );
 }
