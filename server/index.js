@@ -1,4 +1,3 @@
-const PORT = 8000;
 const express = require("express");
 const { MongoClient } = require("mongodb");
 const { v4: uuidv4 } = require("uuid");
@@ -8,8 +7,7 @@ const bcrypt = require("bcrypt");
 require('dotenv').config()
 
 const uri = process.env.URI
-// CONST URI GOES HERE
-// DO NOT PUSH UNTIL THIS IS HIDDEN
+const PORT = process.env.PORT || 80
 
 const app = express();
 app.use(cors());
@@ -57,7 +55,6 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-
 app.post("/login", async (req, res) => {
   const client = new MongoClient(uri);
   const { email, password } = req.body;
@@ -70,7 +67,7 @@ app.post("/login", async (req, res) => {
 
     const correctPassword = await bcrypt.compare(
       password,
-      user.hashed_password
+      user?.hashed_password
     );
 
     if (user && correctPassword) {
@@ -78,13 +75,13 @@ app.post("/login", async (req, res) => {
         expiresIn: 60 * 24,
       });
       res.status(201).json({ token, userId: user.user_id });
+    } else {
+      res.status(400).send("Invalid credentials");
     }
-    res.status(400).send("Invalid credentials");
   } catch (err) {
     console.log(err);
   }
 });
-
 
 app.get("/user", async (req, res) => {
   const client = new MongoClient(uri);
